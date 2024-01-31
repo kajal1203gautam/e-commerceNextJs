@@ -29,7 +29,7 @@ export default function Footer(){
                     </ul>
                 </div>
             </div>
-            <p className="text-center pb-2">Copyright 2024</p>
+            <p className="text-center pb-2 mb-0">Copyright 2024</p>
         </div>
        </footer>
         </>

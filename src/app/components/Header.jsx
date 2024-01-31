@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
+
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -19,6 +20,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { ProductContext } from '../context/productContext';
 import { useEffect,useState,useContext } from "react";
 import { loadData } from "../services/api";
+import Link from 'next/link';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -81,11 +83,11 @@ export default function Header() {
     const { state, dispatch } = useContext(ProductContext);
     const handleData = async () => {
         const result = await loadData('https://myshopprime.com/api/zoomi/shop/listing?type=shop&sortBy=recency&pageNo=8&token=mdlhx2p');
-        console.log(result, 'dfghfgh');
+        // console.log(result, 'dfghfgh');
         setProductData(result);
     }
-    console.log(productData)
-    console.log({ state })
+    // console.log(productData)
+    // console.log({ state })
     useEffect(() => {
         handleData()
     }, []);
@@ -200,15 +202,18 @@ export default function Header() {
                     >
                         <MenuIcon />
                     </IconButton>
+                    <Link href={"/"}>
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                        sx={{ display: { xs: 'none', sm: 'block' } , color: 'white'}}
                     >
-                        MUI
+                        Home
                     </Typography>
-                    <Search onChange={handleChange} value = {inputHandle}>
+                    </Link>
+                    <Link href="/product" className='text-white links'  >Products</Link>
+                    <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>

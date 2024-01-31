@@ -7,8 +7,25 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { IconButton } from '@mui/material';
+import { CartContext } from '../cartContext/page';
+import { useContext } from 'react';
 
 export default function ProductsCard({product}) {
+// cart implementation
+const {state, dispatch} = useContext(CartContext);
+
+console.log(state, 'state')
+// const isProductInCart = state.cartData.filter(c=>c.id === action.payload)
+const handleAddToCart = (item)=>{
+  console.log(item, 'item')
+  dispatch({type:"ADD-TO-CART",payload:item})
+//  if(!isProductInCart){
+//   dispatch({type:"ADD-TO-CART",payload:item})
+//  }
+//  else{
+//   console.log('Product is already in the cart!');
+//  }
+}
   return (
     <Card sx={{ maxWidth: 345, margin: 1 }} key={product?.productId}>
        
@@ -21,7 +38,7 @@ export default function ProductsCard({product}) {
           <h5>Rs {product?.buyerPrice}</h5>
           <div className="shopping_cart">
             <IconButton color="primary" aria-label="add to shopping cart">
-              <AddShoppingCartIcon />
+            <button onClick={()=>handleAddToCart(product)}><AddShoppingCartIcon /></button> 
             </IconButton>
           </div>
         </div>

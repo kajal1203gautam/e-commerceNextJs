@@ -11,16 +11,23 @@ import { ProductContext } from "./context/productContext";
 import { useEffect } from "react";
 import { loadData } from "./services/api";
 
+
 export default function Home() {
+  //implementation api 
 const {state, dispatch} = useContext(ProductContext);
   const handleData = async () => {
     const result = await loadData('https://myshopprime.com/api/zoomi/shop/listing?type=shop&sortBy=recency&pageNo=1&token=mdlhx2p');
     dispatch({type:'LOAD',payload:result});
   }
   console.log({state})
+  console.log(state.data, 'banners')
   useEffect(() => {
     handleData()
   },[])
+
+
+
+
   return (
     <>
       <Hero />

@@ -5,3 +5,26 @@ ul {
   padding-left: 10px;
   align-items: center;
 }
+.menu-link{
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: black;
+}
+
+.no-data-found{
+  width: 90%;
+  height: 500px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ebebeb;
+  color: black;
+  border-radius: 10px;
+}
+.links{
+  text-decoration: none;
+  margin: 20px;
+}
+

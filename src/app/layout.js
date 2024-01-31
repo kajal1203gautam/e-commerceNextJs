@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import { DataProvider } from "./context/productContext";
+import { CartProvider } from "./cartContext/page";
 
 
 
@@ -21,11 +22,13 @@ export default function RootLayout({ children }) {
 
     <html lang="en">
       <body className={inter.className}>
+        <CartProvider>
         <DataProvider>
           <Header />
           {children}
           <Footer />
         </DataProvider>
+        </CartProvider>
 
       </body>
     </html>
