@@ -7,24 +7,21 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { IconButton } from '@mui/material';
-import { CartContext } from '../cartContext/page';
-import { useContext } from 'react';
+import { useCart } from '../cartContext/cartContext';
 
 export default function ProductsCard({product}) {
 // cart implementation
-const {state, dispatch} = useContext(CartContext);
+// const {stateCart, dispatchCart} = useContext(CartContext);
+const {cart, addToCart,isInCart, removeFromCart}= useCart();
 
-console.log(state, 'state')
-// const isProductInCart = state.cartData.filter(c=>c.id === action.payload)
 const handleAddToCart = (item)=>{
-  console.log(item, 'item')
-  dispatch({type:"ADD-TO-CART",payload:item})
-//  if(!isProductInCart){
-//   dispatch({type:"ADD-TO-CART",payload:item})
-//  }
-//  else{
-//   console.log('Product is already in the cart!');
-//  }
+  addToCart(item)
+  // console.log(item, 'item')
+  // dispatchCart({type:"ADD-TO-CART",payload:item})
+}
+
+const handleRemoveFromCart = (item)=>{
+  removeFromCart(item.id)
 }
   return (
     <Card sx={{ maxWidth: 345, margin: 1 }} key={product?.productId}>
@@ -35,11 +32,18 @@ const handleAddToCart = (item)=>{
       <CardContent>
         <p>{product?.productTitle?.slice(0,20)}</p>
         <div className="d-flex justify-content-between">
-          <h5>Rs {product?.buyerPrice}</h5>
+          <h6 className='' style={{marginTop:'18px'}}>Rs {product?.buyerPrice}</h6>
           <div className="shopping_cart">
-            <IconButton color="primary" aria-label="add to shopping cart">
-            <button onClick={()=>handleAddToCart(product)}><AddShoppingCartIcon /></button> 
+            {isInCart(product.id) ?<>
+              <button onClick={()=>removeFromCart(product.id)} style={{border:'0', backgroundColor:'white', color: 'red',fontSize:'15px'}}>Remove</button>
+            </>:
+            <IconButton onClick={()=>addToCart(product)} color="primary" aria-label="add to shopping cart">
+            <AddShoppingCartIcon />
             </IconButton>
+            }
+            
+          
+
           </div>
         </div>
       </CardContent>

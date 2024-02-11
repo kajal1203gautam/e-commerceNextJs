@@ -5,9 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import { DataProvider } from "./context/productContext";
-import { CartProvider } from "./cartContext/page";
-
-
+import { CartProvider } from "./cartContext/cartContext";
 
 
 const inter = Inter({ subsets: ["latin"] });

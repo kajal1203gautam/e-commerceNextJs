@@ -59,7 +59,7 @@ const {state, dispatch} = useContext(ProductContext);
             state.data && state.data.resellingProducts && state.data.resellingProducts.length>0 && state.data.resellingProducts.map((product)=>{
                 return(
                   
-                  <div className="col-lg-3">
+                  <div className="col-lg-3" key={product.id}>
                     <ProductsCard  product={product} />
                   </div>
                 )

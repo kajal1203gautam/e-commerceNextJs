@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
-
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -18,9 +18,10 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { ProductContext } from '../context/productContext';
-import { useEffect,useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { loadData } from "../services/api";
 import Link from 'next/link';
+import { useCart } from '../cartContext/cartContext';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -63,23 +64,28 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
-// const [inputHandle, setInputHandle] = useState('')
+    // const [inputHandle, setInputHandle] = useState('')
 
-//     const handleChange  = (event)=>{
-//         setInputHandle( event.target.value)
-//     }
+    //     const handleChange  = (event)=>{
+    //         setInputHandle( event.target.value)
+    //     }
 
-//     const searchFilter = (array)=>{
-//        return(
-//         array.filter((item)=>{
-//             return item.productName.toLowerCase().includes(inputHandle)
-//         })
-//        )
+    //     const searchFilter = (array)=>{
+    //        return(
+    //         array.filter((item)=>{
+    //             return item.productName.toLowerCase().includes(inputHandle)
+    //         })
+    //        )
 
-//     }
-//     const finalData = searchFilter(inputHandle)
+    //     }
+    //     const finalData = searchFilter(inputHandle)
 
+    // const { stateCart, dispatchCart } = useContext(CartContext)
+    // console.log(stateCart, 'stateCart')
     const [productData, setProductData] = useState({});
+    const [cartItems, setCartItems] = useState([]);
+    const {cart, addToCart, removeFromCart}= useCart();
+
     const { state, dispatch } = useContext(ProductContext);
     const handleData = async () => {
         const result = await loadData('https://myshopprime.com/api/zoomi/shop/listing?type=shop&sortBy=recency&pageNo=8&token=mdlhx2p');
@@ -88,9 +94,6 @@ export default function Header() {
     }
     // console.log(productData)
     // console.log({ state })
-    useEffect(() => {
-        handleData()
-    }, []);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -203,14 +206,14 @@ export default function Header() {
                         <MenuIcon />
                     </IconButton>
                     <Link href={"/"}>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } , color: 'white'}}
-                    >
-                        Home
-                    </Typography>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ display: { xs: 'none', sm: 'block' }, color: 'white' }}
+                        >
+                            Home
+                        </Typography>
                     </Link>
                     <Link href="/product" className='text-white links'  >Products</Link>
                     <Search>
@@ -229,15 +232,23 @@ export default function Header() {
                                 <MailIcon />
                             </Badge>
                         </IconButton>
+                        <Link href={"/cartList"}>
                         <IconButton
                             size="large"
                             aria-label="show 17 new notifications"
                             color="inherit"
                         >
-                            <Badge badgeContent={17} color="error">
-                                <NotificationsIcon />
-                            </Badge>
+                            <AddShoppingCartIcon className='text-white links'/>
+                            {
+                                cart  && cart.length > 0 && (
+                                    // <p>{stateCart.cartData.length}</p>
+                                    <Badge badgeContent={cart.length} color="error"></Badge>
+                                )}
+
+                            {/* <NotificationsIcon /> */}
+
                         </IconButton>
+                        </Link>
                         <IconButton
                             size="large"
                             edge="end"

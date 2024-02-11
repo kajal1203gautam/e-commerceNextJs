@@ -2,32 +2,43 @@
 'use client'
 import { createContext, useReducer } from "react";
 
-export const CartContext  = createContext();
+export const CartContext = createContext();
 
-const initialState = {
-cartData: []
+const initialStateCart = {
+    cartData: []
 }
-const cartReducer = (state, action)=>{
-    console.log(action.payload, 'payload');  
-if(action.type === "ADD-TO-CART"){
-    return {
-        ...state, cartData: [...state.cartData,action.payload]
+const cartReducer = (stateCart, action) => {
+    console.log(action.payload, 'payload');
+    if (action.type === "ADD-TO-CART") {
+        const isItemInCart = stateCart.cartData.some((item) => item.id === action.payload.id)
+        if (isItemInCart) {
+            console.log('Item is in cart');
+            return stateCart
+
+        } return {
+            ...stateCart, cartData: [...stateCart.cartData, action.payload]
+        }
+    } if (action.type === 'REMOVE-FROM-CART') {
+        const updatedCart = stateCart.cartData.filter((item) => item.id !== action.payload.id)
+        if (updatedCart) {
+            return {
+                ...stateCart, cartData: updatedCart
+            }
+        }
+    } else {
+        return stateCart
     }
-}else{
-    return state
-}
-
 }
 
 
-export const CartProvider = ({children})=>{
-    const [state, dispatch] =  useReducer(cartReducer, initialState);
-    console.log(state,'state');
+export const CartProvider = ({ children }) => {
+    const [stateCart, dispatchCart] = useReducer(cartReducer, initialStateCart);
+    console.log(stateCart, 'stateCart');
     // const addToCart =(item)=>{
-    //     dispatch({ type: 'ADD_TO_CART', payload: item });
+    //     dispatchCart({ type: 'ADD_TO_CART', payload: item });
     // }
-    return(
-        <CartContext.Provider value={{ state, dispatch }}>
+    return (
+        <CartContext.Provider value={{ stateCart, dispatchCart }}>
             {children}
         </CartContext.Provider>
     )
