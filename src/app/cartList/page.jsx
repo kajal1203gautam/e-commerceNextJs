@@ -1,13 +1,11 @@
 'use client'
 
-import { useReducer, useState, useEffect } from "react";
+
 import { useCart } from "../cartContext/cartContext";
-import PriceDetails from "./PriceDetails";
 import { Button, TextField } from "@mui/material";
 
 export default function CartList() {
-    const { cart, isInCart,updateCartQuantity,totalAmount, addToCart, removeFromCart } = useCart();
-    const [amount,setAmout]= useState(0);    
+    const { cart,updateCartQuantity,totalAmount, removeFromCart } = useCart();    
     console.log({ cart })
 
     const handleQuantityChange = (id,quantity) => {
@@ -62,13 +60,6 @@ export default function CartList() {
                                                                                 <TextField style={{width:100}} label="Quantity" value={item.quantity?item.quantity:1} variant="outlined" />
                                                                                 <Button coolor="primary" variant="contained" disabled={!item.quantity || item.quantity && item.quantity==1} onClick={()=>handleQuantityChange(item.id,item.quantity?item.quantity-1:1)}>-</Button>
                                                                             </div>
-                                                                            {/* <label for="quantity">Quantity:</label>
-                                                                            <input type="number" id='quantity'
-                                                                            
-                                                                               value={item?.quantity}
-                                                                               min={1}
-                                                                               max={6}
-                                                                              className="form-control quantity-input inp_quantity" /> */}
                                                                         </div>
                                                                         
                                                                     </div>
