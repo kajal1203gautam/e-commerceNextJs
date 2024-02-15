@@ -84,7 +84,7 @@ export default function Header() {
     // console.log(stateCart, 'stateCart')
     const [productData, setProductData] = useState({});
     const [cartItems, setCartItems] = useState([]);
-    const {cart, addToCart, removeFromCart}= useCart();
+    const { cart, addToCart, removeFromCart } = useCart();
 
     const { state, dispatch } = useContext(ProductContext);
     const handleData = async () => {
@@ -94,6 +94,18 @@ export default function Header() {
     }
     // console.log(productData)
     // console.log({ state })
+
+
+    const handleResetCart = () => {
+        if (localStorage && localStorage.getItem("cart")) {
+            localStorage.clear();
+        }
+    }
+    console.log(cart, 'resetCart');
+    useEffect(() => {
+       
+        handleResetCart();
+    }, [cart]);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -233,21 +245,21 @@ export default function Header() {
                             </Badge>
                         </IconButton>
                         <Link href={"/cartList"}>
-                        <IconButton
-                            size="large"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                        >
-                            <AddShoppingCartIcon className='text-white links'/>
-                            {
-                                cart  && cart.length > 0 && (
-                                    // <p>{stateCart.cartData.length}</p>
-                                    <Badge badgeContent={cart.length} color="error"></Badge>
-                                )}
+                            <IconButton
+                                size="large"
+                                aria-label="show 17 new notifications"
+                                color="inherit"
+                            >
+                                <AddShoppingCartIcon className='text-white links' />
+                                {
+                                    cart && cart.length > 0 && (
+                                        // <p>{stateCart.cartData.length}</p>
+                                        <Badge badgeContent={cart.length} color="error" className='addtocart'></Badge>
+                                    )}
 
-                            {/* <NotificationsIcon /> */}
+                                {/* <NotificationsIcon /> */}
 
-                        </IconButton>
+                            </IconButton>
                         </Link>
                         <IconButton
                             size="large"

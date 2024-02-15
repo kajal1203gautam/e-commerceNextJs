@@ -35,7 +35,7 @@ useEffect(() => {
       if(item.quantity){
         total += item.quantity * item.buyerPrice
       }else{
-        total += item.quantity
+        total += item.buyerPrice
       }
     })
     return total
