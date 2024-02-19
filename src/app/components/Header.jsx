@@ -96,16 +96,7 @@ export default function Header() {
     // console.log({ state })
 
 
-    const handleResetCart = () => {
-        if (localStorage && localStorage.getItem("cart")) {
-            localStorage.clear();
-        }
-    }
-    console.log(cart, 'resetCart');
-    useEffect(() => {
-       
-        handleResetCart();
-    }, [cart]);
+   
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);

@@ -23,7 +23,7 @@ const validationSchema = Yup.object({
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
 
 const PersonalDetails = () => {
-  const {cart} = useCart();
+  const {cart, clearCart} = useCart();
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -44,14 +44,9 @@ const PersonalDetails = () => {
   });
 
   const handleResetCart = () => {
-    if(localStorage && localStorage.getItem("cart")){
-      localStorage.clear();
+    clearCart()
   }
-  }
-  console.log(localStorage.getItem("cart"));
-  useEffect(() => {
-    handleResetCart();
-  }, [cart]);
+
    
 
   return (

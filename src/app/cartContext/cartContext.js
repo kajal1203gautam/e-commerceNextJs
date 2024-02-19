@@ -57,11 +57,17 @@ useEffect(() => {
   const isInCart = (id) =>{
     return cart.some((item) => item?.id === id)
   }
+  const clearCart = () =>{
+    setCart([]);
+    localStorage.setItem('cart', JSON.stringify([]));
+  }
+
+
 
 
 
   return (
-    <CartContext.Provider value={{ cart,isInCart,updateCartQuantity,totalAmount, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart,clearCart,isInCart,updateCartQuantity,totalAmount, addToCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );

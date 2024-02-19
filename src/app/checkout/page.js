@@ -28,7 +28,7 @@ const validationSchema = Yup.object({
 });
 
 export default function CartList() {
-    const { cart, updateCartQuantity, totalAmount, removeFromCart } = useCart();
+    const { cart, updateCartQuantity,clearCart, totalAmount, removeFromCart } = useCart();
     console.log({ cart })
 
     const handleQuantityChange = (id, quantity) => {
@@ -66,6 +66,7 @@ export default function CartList() {
     //     console.log(values);
     //     setSubmitting(false);
     // };
+    
 
     return (
         <>
